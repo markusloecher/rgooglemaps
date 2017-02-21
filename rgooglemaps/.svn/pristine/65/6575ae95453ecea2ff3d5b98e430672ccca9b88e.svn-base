@@ -1,0 +1,116 @@
+---
+title: "Offline Maps with RgoogleMaps and leaflets"
+author: "M Loecher"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Offline Maps with RgoogleMaps and leaflets}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### New version of RgoogleMaps now fetches map tiles
+
+Until version 1.3.0 *RgoogleMaps* only 
+downloaded static maps as provided by the static maps APIs from e.g. Google, bing and OSM. While there are numerous advantages to this strategy such as full access to the extensive feature list provided by those APIs, the limitations are also clear:
+
+1. unlikely reusability of previously stored static maps,
+2. limits on the maximum size of the map (640,640),
+3. and the requirement to be online.
+
+Beginning with [version 1.4.1](http://rgooglemaps.r-forge.r-project.org/) (which is now on [CRAN](https://cran.r-project.org/web/packages/RgoogleMaps/index.html) )
+, we added the functions *GetMapTiles* and *PlotOnMapTiles* which fetch individual map tiles and store them locally. 
+
+For example, if we wanted to fetch 20 tiles (in each direction) at zoom level 16 around  Washington Square Park in Manhattan, we would simply run
+
+```{r, eval = TRUE}
+library(RgoogleMaps)
+(center=getGeoCode("Washington Square Park;NY"))
+GetMapTiles(center, zoom=16,nTiles = c(20,20))
+  
+```
+
+Note that the default server is taken to be *openstreetmap* and the default local directory $tileDir= "~/mapTiles/OSM/"$.
+We could have also passed the location string directly and saved several zoom levels at once (note the constant radius adaptation of the number of tiles):
+
+```{r, eval = TRUE}
+for (zoom in 13:15)
+  GetMapTiles("Washington Square Park;NY", zoom=zoom,nTiles = round(c(20,20)/(17-zoom)))
+  
+```
+
+Before requesting new tiles, the function checks if that map tile exists already which avoids redundant downloads.
+
+We can repeat the process with Google map tiles and plot them:
+
+```{r, eval = TRUE,fig.width=10,fig.height=10}
+for (zoom in 13:16)
+  GetMapTiles("Washington Square Park;NY", zoom=zoom,nTiles = round(c(20,20)/(17-zoom)),
+              urlBase = "http://mt1.google.com/vt/lyrs=m", tileDir= "~/mapTiles/Google/")
+
+#just get 3x3 tiles:
+
+#mt= GetMapTiles(center = c(lat = 40.73082, lon =-73.99733), zoom=16,nTiles = c(3,3), urlBase = "http://mt1.google.com/vt/lyrs=m", tileDir= "~/mapTiles/Google/", returnTiles = TRUE)
+
+mt= GetMapTiles("Washington Square Park;NY", zoom=16,nTiles = c(3,3),
+              urlBase = "http://mt1.google.com/vt/lyrs=m", tileDir= "~/mapTiles/Google/", returnTiles = TRUE)
+PlotOnMapTiles(mt)
+```
+
+### Interactive Web Maps with the JavaScript 'Leaflet' Library 
+
+While the original motivation of *GetMapTiles* was to enable offline creation of static maps within the package *RgoogleMaps*, combining this feature with the interactivity of the *leaflet* library leads to an effective offline maps version of leaflet!
+
+We only need to replace the default server specified by the parameter *urlTemplate* by a local server obliging with the file naming scheme zoom_X_Y.png set by *GetMapTiles*
+Any simple local Web service will suffice, but the following two solutions work best for me 
+
+1. (http://stackoverflow.com/questions/5050851/best-lightweight-web-server-only-static-content-for-windows) "To use Python 2 as a simple web server just change your working directory to the folder with your static content and type 
+ *python -m SimpleHTTPServer 8000*, everything in the directory
+ will be available at http:/localhost:8000/"
+   * For python3 the command would be *python -m http.server 8000*
+ 
+2. (https://github.com/yihui/servr or CRAN) Use the R package servr: Rscript -e 'servr::httd()' -p8000
+
+So assuming (i) successful execution of the map tileabove and (ii) the correct launch of the server (in the parent dirtectory of *mapTiles/*), the following code will have leaflet dynamically load them (from the local repository) for zooming and panning abilities: 
+
+```{r, eval=FALSE }
+library(leaflet)
+  m = leaflet::leaflet() %>% 
+    addTiles( urlTemplate = "http:/localhost:8000/mapTiles/OSM/{z}_{x}_{y}.png")
+  m = m %>% leaflet::setView(-73.99733, 40.73082 , zoom = 16)
+  m = m %>% leaflet::addMarkers(-73.99733, 40.73082 )
+  m
+```
+
+```{r, echo=FALSE ,fig.width=8,fig.height=8}
+# R/R-3.3.0/bin/i386/Rscript.exe -e 'servr::httd()' -p8000
+library(leaflet)
+  m = leaflet::leaflet() %>%  addTiles()
+  m = m %>% leaflet::setView(-73.99733, 40.73082 , zoom = 16)
+  m = m %>% leaflet::addMarkers(-73.99733, 40.73082 )
+  m
+```
+
+And for google map tiles:
+
+```{r, eval=FALSE }
+library(leaflet)
+  m = leaflet::leaflet() %>% 
+    addTiles( urlTemplate = "http:/localhost:8000/mapTiles/Google/{z}_{x}_{y}.png")
+  m = m %>% leaflet::setView(-73.99733, 40.73082 , zoom = 16)
+  m = m %>% leaflet::addMarkers(-73.99733, 40.73082 )
+  m
+```
+
+```{r, echo=FALSE,fig.width=8,fig.height=8 }
+library(leaflet)
+  m = leaflet::leaflet() %>% 
+    addTiles( urlTemplate = "http://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}")
+  m = m %>% leaflet::setView(-73.99733, 40.73082 , zoom = 16)
+  m = m %>% leaflet::addMarkers(-73.99733, 40.73082 )
+  m
+```

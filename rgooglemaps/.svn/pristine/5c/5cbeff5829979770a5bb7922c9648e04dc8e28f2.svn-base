@@ -1,0 +1,13 @@
+data("meuse", package = "sp", envir = environment())
+clas(meuse)
+class(meuse)
+sp::coordinates(meuse) <- ~x+y #c("x", "y")
+sp::proj4string(meuse) <- crs;
+crs = sp::CRS("+init=epsg:28992")
+sp::proj4string(meuse) <- crs;
+class(meuse)
+sp::plot(meuseSP, asp = 1, cex = 4 * meuse$zinc/max(meuse$zinc),
+pch = 1, col = as.numeric(meuse$ffreq)+1 )
+sp::plot(meuse, asp = 1, cex = 4 * meuse$zinc/max(meuse$zinc),
+pch = 1, col = as.numeric(meuse$ffreq)+1 )
+print(load("data/crimeHouston.rda"))#loads a data frame called crime

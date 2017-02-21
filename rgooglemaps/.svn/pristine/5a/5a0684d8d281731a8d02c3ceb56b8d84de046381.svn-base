@@ -1,0 +1,16 @@
+Package: RgoogleMaps
+Type: Package
+Title: Overlays on Static Maps
+Version: 1.4.2
+Date: 2017-02-01
+Depends: R (>= 2.10)
+Imports: graphics, stats, utils, grDevices, methods, png
+Suggests: PBSmapping, maptools, sp, loa, RColorBrewer, leaflet
+Author: Markus Loecher 
+Maintainer: Markus Loecher <markus.loecher@gmail.com>
+Description: Serves two purposes: (i) Provide a
+        comfortable R interface to query the Google server for static
+        maps, and (ii) Use the map as a background image to overlay
+        plots within R. This requires proper coordinate scaling.
+License: GPL
+LazyLoad: yes

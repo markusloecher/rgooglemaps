@@ -1,0 +1,14 @@
+---
+title: "Map tiles for Tableau"
+author: "M Loecher"
+date: "9 Februar 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Map tiles
+
+http://kb.tableau.com/articles/knowledgebase/connect-to-tableau-map-service

@@ -1,0 +1,38 @@
+---
+title: "Overview"
+author: "M Loecher"
+date: "9 Februar 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## RgoogleMaps only
+
+### Quick tutorial
+http://rgooglemaps.r-forge.r-project.org/QuickTutorial.html
+
+### Offline Maps with RgoogleMaps and leaflets
+
+http://rgooglemaps.r-forge.r-project.org/OfflineMaps-RgoogleMaps-leaflets.html
+
+--------------------------------------------
+
+## General R and spatial data tutorials
+
+### Introduction to R for GIS folks
+
+http://rgooglemaps.r-forge.r-project.org/Intro2R.html
+
+### Casual Spatial data  visualization
+
+http://rgooglemaps.r-forge.r-project.org/Light_spatial_data_visualization.html
+
+http://rgooglemaps.r-forge.r-project.org/Mapview.html
+
+### Serious Spatial data  visualization
+
+http://rgooglemaps.r-forge.r-project.org/Serious_spatial_data_visualization.html
+
