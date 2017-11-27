@@ -1,0 +1,100 @@
+---
+title: "Conditional Map Plots"
+author: "M Loecher"
+date: "27 November 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library("RgoogleMaps")
+library("loa")
+library(latticeExtra)
+dataDir="H:/DropboxHWR/InternationalVisits/Aalborg2016/Teaching/MapsInR/ForStudents/data/"
+
+load(file.path(dataDir, "crimeHouston.rda"))#loads a data frame called crime
+ii=which(is.na(crime$lon))
+crime=crime[-ii,]
+
+```
+
+## additional loa library
+
+### Conditional Plotting
+
+Using the loa library and a larger crime dataset:
+
+```{r}
+try({
+  load(file.path(dataDir, "SFincidents2012.rda"))
+})
+colnames(incidents)[10:11] = c("lon", "lat")
+
+cols <- c("yellow", "darkred")
+
+set.seed(123)
+ranRows = sample(nrow(crime),nrow(crime)/4)
+bb <- qbbox(lat = crime[ranRows,"lat"], lon = crime[ranRows,"lon"],
+            TYPE = "quantile")
+
+```
+
+
+```{r , fig.width=9, fig.height=9, eval=TRUE}
+
+GoogleMap(~lat*lon|DayOfWeek,         #plot conditioned         
+          data=incidents, map=NULL,
+          groups=incidents$violent,                                               
+          col=cols, cex=0.1, alpha=0.3,                 
+          panel=panel.loaPlot2,                         
+          key.groups=list(main="Violent", 
+                          cex=1, col=cols))    
+
+loa_mapSF <- getMapArg()
+```
+
+
+### Heat Maps:
+
+
+```{r }
+v <- ifelse(incidents$violent==TRUE, "Violent", "Non-violent")
+#weekend versus weekday:
+WE = ifelse(incidents$DayOfWeek %in% c("Saturday", "Sunday"),"weekend", "weekday")
+
+useOuterStrips(GoogleMap(~lat*lon|WE+v,         #plot conditioned         
+          data=incidents, map=loa_mapSF,
+          panel=panel.kernelDensity,                          #surface plot control                                                                
+          col.regions=c("lightyellow", "darkred"),            #
+          alpha.regions=0.5,                                  #                       
+          col=1,                                              #surface calculation    
+          n=200, at=c(0.5,1,2.5,5,10,25,50), 
+          scales=list(draw=FALSE), xlab="", ylab=""))     
+#useOuterStrips(trellis.last.object())
+
+```
+
+####  Extra Credit: Create a trellis type display (using the loa library) of crime plots conditioned on weekday.
+
+```{r, echo=TRUE, hide=TRUE,eval=TRUE}
+
+#remove the data outside the bounding box!
+i1 = which(crime$lat > bb$latR[2] | crime$lat < bb$latR[1] )
+i2 = which(crime$lon > bb$lonR[2] | crime$lon < bb$lonR[1] )
+
+crime = crime[-union(i1,i2),]
+
+GoogleMap(~lat*lon, data=crime,    # the basic plot 
+          maptype="roadmap",       # maptype 
+          type="n",                # don't plot points  
+          size=c(470,470))         # reduce the panel size          
+loaMap <- getMapArg()              # recover map from plot
+
+GoogleMap(~lat*lon|day, data=crime,                           
+          map=loaMap,                         
+          col="darkred", cex=0.1, alpha=0.1,
+          scales=list(draw=FALSE), xlab="", ylab="")
+```
+
+
+

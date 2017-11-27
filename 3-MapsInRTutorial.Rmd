@@ -1,0 +1,268 @@
+---
+title: "Quick Tutorial, maps in R"
+author: "M Loecher"
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 7)
+loadLibs = function(libs="RgoogleMaps"){
+  for (l in libs) 
+    suppressMessages(suppressWarnings(library(l,character.only =TRUE, quietly=TRUE)))
+}
+
+loadLibs("RgoogleMaps")
+loadLibs("loa")
+loadLibs("latticeExtra")
+loadLibs("ggmap")
+
+#bingAPIkey = scan("C:/Users/loecherm/Dropbox/stuff/bingAPIkey.txt",what="")
+bingAPIkey = scan("C:/DatenLoecher/Dropbox/stuff/bingAPIkey.txt",what="")
+googleAPIkey = scan("C:/DatenLoecher/Dropbox/stuff/googleAPIkey.txt",what="")
+
+dataDir="H:/DropboxHWR/InternationalVisits/Aalborg2016/Teaching/MapsInR/ForStudents/data/"
+OFFLINE=TRUE # use previously downloaded maps/data
+set.seed(123)
+
+if (OFFLINE) load("data/allTiles.rda")
+```
+
+
+### The RgoogleMaps package
+
+The Google Static Maps API (https://developers.google.com/maps/documentation/static-maps/intro) lets you embed a Google Maps image on your webpage without requiring JavaScript or any dynamic page loading. The Google Static Map service creates your map based on URL parameters sent through a standard HTTP request and returns the map as an image you can display on your web page.
+
+ Note: The Google Static Maps API does NOT require a Maps API key any longer. 
+You can still sign up for a free API key at http://code.google.com/apis/maps/signup.html if you need e.g. a higher quota of tiles.
+
+ This package serves two purposes:
+
+1.  Provide a comfortable R interface to query the Google server for static maps 
+2. Use the map as a background image to overlay plots within R. This requires proper coordinate scaling.
+
+The first step naturally will be to download a static map from the Google server. A simple example is shown in this Figure:
+```{r, echo=TRUE, eval=!OFFLINE}
+par(pty="s")
+map1 <- GetMap(markers = paste0(
+"&markers=color:blue|label:S|40.702147,-74.015794",
+"&markers=color:green|label:G|40.711614,-74.012318",
+"&markers=color:red|color:red|label:C|40.718217,-73.998284"),
+center=NULL,destfile = "staticMaps/MyTile1.png",size=c(640,640),
+maptype = "terrain", API_console_key=googleAPIkey)
+
+PlotOnStaticMap(map1)
+```
+
+```{r, echo=TRUE, eval=OFFLINE}
+par(pty="s")
+PlotOnStaticMap(map1)
+```
+
+
+## No data, just maps
+
+The 2-step process from above (fetch a map -> plot) can be simplified:
+
+```{r , eval=!OFFLINE}
+par(pty="s")
+mapBG1 = plotmap("Brandenburg Gate, Berlin", zoom = 15)
+
+mapBG2 = plotmap("Brandenburg Gate, Berlin", zoom = 16, maptype="satellite")
+```
+
+```{r, echo=FALSE , eval=OFFLINE}
+par(pty="s")
+PlotOnStaticMap(mapBG1)
+PlotOnStaticMap(mapBG2)
+```
+
+
+### Show traffic on bing maps
+
+```{r, eval=!OFFLINE }
+par(pty="s")
+
+mapBG3 = GetBingMap(center="Brandenburg Gate, Berlin", zoom=12, extraURL="&mapLayer=TrafficFlow", 
+                      apiKey=bingAPIkey,verbose=1, destfile="staticMaps/BerlinTraffic.png")
+PlotOnStaticMap(mapBG3)
+```
+
+```{r, echo=FALSE , eval=OFFLINE}
+par(pty="s")
+PlotOnStaticMap(mapBG3)
+```
+
+### Customize google maps
+
+no highways:
+
+```{r, eval=!OFFLINE }
+par(pty="s")
+
+ManHatMap <- GetMap(center="Lower Manhattan", zoom=15, 
+                      extraURL="&style=feature:road.highway|visibility:off")
+  PlotOnStaticMap(ManHatMap)
+```
+
+```{r, echo=FALSE , eval=OFFLINE}
+par(pty="s")
+PlotOnStaticMap(ManHatMap)
+```
+
+## Plots with spatial data
+
+```{r }
+data(incidents)
+col=as.numeric(incidents$Category)
+```
+
+```{r, echo=TRUE , eval=TRUE}
+par(pty="s")
+
+mapSF_Z15 = plotmap(lat, lon, zoom = 15, col = col, pch=20, data = incidents)
+#mapSF_Z13 = with(incidents, plotmap(lat, lon, zoom = 13, col = "Category", pch=20))
+
+#lower zoom
+#mapSF_Z13 = plotmap(lat, lon, zoom = 13, col = col, pch=20, data = incidents, alpha = 0.7)
+```
+
+```{r, echo=FALSE , eval=FALSE}
+par(pty="s")
+PlotOnStaticMap(mapSF_Z15)
+PlotOnStaticMap(mapSF_Z13)
+```
+
+### Working offline
+
+It would be wasteful to have to fetch a new map from the map server for each new plot!
+Instead, we pass the map object to the next calls:
+
+
+```{r }
+par(pty="s")
+SundayCrimes = subset(incidents, DayOfWeek=="Sunday")
+col=as.numeric(SundayCrimes$violent)
+tmp=plotmap(lat, lon, mapSF_Z13, col = col, pch=20, data = SundayCrimes, alpha = 0.5)
+```
+
+
+### Basic Overlays:
+
+The function qbbox() basically computes a bounding box for the given lat,lon points with a few additional options such as quantile boxes, additional buffers, etc.
+
+
+The function LatLon2XY(lat,lon,zoom) computes the coordinate transformation from lat/lon to map tile coordinates. 
+It returns the tile coordinates as well as the pixel coordinates within the Tile itself.
+We compare this projection with more standard projections used in the GIS community in the appendix.
+
+
+ The choice of a proper zoom value is made easy via the function $MaxZoom()$ which finds the maximum zoom level that fits the provided lat/lon ranges obeying the max size limitation of $640 \times 640$ pixels.
+
+ The main function that overlays points (can easily be extended to lines or any other object) is $PlotOnStaticMap()$.
+The following simple sequence of calls serves to test the coincidence of the markers placed by Google and the corresponding points overlaid by $PlotOnStaticMap()$, see Fig below. Note that we select terrain style to make the colored points more discernible.
+
+```{r, echo=TRUE, eval=!OFFLINE}
+par(pty="s")
+
+mymarkers = cbind.data.frame(char = c("","",""),
+    lat = c(38.898648,38.889112, 38.880940),
+    lon = c(-77.037692, -77.050273, -77.03660), 
+    col = c("blue", "green", "red"))
+
+#get the bounding box:
+  bb <- qbbox(lat = mymarkers[,"lat"], lon = mymarkers[,"lon"])
+#download the map:
+  mapDC <- GetMap.bbox(bb$lonR, bb$latR)
+  
+  PlotOnStaticMap(mapDC,lat = mymarkers[,"lat"], 
+        lon = mymarkers[,"lon"],cex=1.5,pch=20,
+        col=c("blue", "green", "red"))
+```
+
+```{r, echo=FALSE , eval=OFFLINE}
+par(pty="s")
+
+mymarkers = cbind.data.frame(char = c("","",""),
+    lat = c(38.898648,38.889112, 38.880940),
+    lon = c(-77.037692, -77.050273, -77.03660), 
+    col = c("blue", "green", "red"))
+
+#get the bounding box:
+  bb <- qbbox(lat = mymarkers[,"lat"], lon = mymarkers[,"lon"])
+PlotOnStaticMap(mapDC,lat = mymarkers[,"lat"], 
+        lon = mymarkers[,"lon"],cex=1.5,pch=20,
+        col=c("blue", "green", "red"))
+```
+
+### getting our feet wet with ggmap and the meuse data 
+
+```{r, eval=TRUE}
+
+if (OFFLINE){
+  meuseMap <- ReadMapTile(file.path(dataDir, "meuseMap.png"))
+  load(file.path(dataDir, "meuseMap2.rda"))
+  load(file.path(dataDir, "meuse2.rda"))
+} else {
+  #RgoogleMaps
+  meuseMap <- GetMap(rev(rowMeans(bbox(meuse2))), zoom=13, destfile="data/meuseMap.png")  
+  #ggmap
+  meuseMap2 <- get_map(location=rowMeans(bbox(meuse2)), zoom=13)   # get Google map
+}
+LevCols = rev(heat.colors(5))[cut(meuse2$lead,breaks=c(0,100,200,300,400,Inf),labels=FALSE)]
+
+meuseLatLon=as.data.frame(meuse2)
+par(pty="s")
+PlotOnStaticMap(meuseMap,lat=meuseLatLon$y,lon=meuseLatLon$x,col=LevCols,pch=20)
+  
+
+ggmap(meuseMap2) + 
+  geom_point(data=meuseLatLon, aes(x,y,fill=lead), 
+             color="grey70", size=2.5, shape=21)+
+  scale_fill_gradientn(colours=rev(heat.colors(5)))
+```
+
+## Houston crime data 
+
+
+```{r, hide=TRUE}
+#1
+load(file.path(dataDir, "crimeHouston.rda"))#loads a data frame called crime
+ii=which(is.na(crime$lon))
+crime=crime[-ii,]
+
+#2 and 3
+set.seed(123)
+ranRows = sample(nrow(crime),nrow(crime)/4)
+bb <- qbbox(lat = crime[ranRows,"lat"], lon = crime[ranRows,"lon"],
+            TYPE = "quantile")
+#download the map:
+if (!OFFLINE) mapHouston <- GetMap.bbox(bb$lonR, bb$latR, destfile = "Houston.png", maptype="terrain")
+par(pty="s")
+tmp <- PlotOnStaticMap(mapHouston,lat = crime[ranRows,"lat"], lon = crime[ranRows,"lon"],cex=0.5,pch=20, col = rgb(0,0,1,0.25) )
+
+murder <- subset(crime, offense == "murder")
+PlotOnStaticMap(mapHouston,lat = murder[,"lat"], lon = murder[,"lon"],cex=0.75,pch=20, col = 2, add=TRUE)
+```
+
+ggmap:
+
+```{r, hide=TRUE}
+#first we build the data set to plot:
+data = crime[ranRows,]
+data$offense = "NonMurder"
+data = rbind.data.frame(data, murder)
+#drop unused levels
+data = droplevels(data)
+#table(data$offense)
+
+```
+
+```{r}
+theme_set(theme_bw(16))
+if (!OFFLINE) HoustonMap <- qmap("houston", zoom = 13, color = "bw", legend = "topleft", scale=1)
+HoustonMap +
+geom_point(aes(x = lon, y = lat, colour = offense), data = data)
+
+```
+
