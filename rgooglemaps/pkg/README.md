@@ -27,6 +27,7 @@ PlotOnStaticMap(myMap,lat=lat,lon=lon,pch=20,col=c('red', 'blue', 'green'),cex=2
 #### Google map server
 
 ``` r
+par(pty="s")
 #Google
 myMap=GetMap(center,zoom=15,urlBase = "http://mt1.google.com/vt/lyrs=m", tileDir= "~/mapTiles/Google/")
 PlotOnStaticMap(myMap,lat=lat,lon=lon,pch=20,col=c('red', 'blue', 'green'),cex=2)
