@@ -21,7 +21,7 @@
   GRAYSCALE =FALSE, ##<< Boolean toggle; if TRUE the colored map tile is rendered into a black & white image, see \link{RGB2GRAY}
   NEWMAP = TRUE, ##<< if TRUE, query the Google server and save to \code{destfile}, if FALSE load from destfile. 
   SCALE = 1, ##<< use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map
-  API_console_key = Sys.getenv("GOOGLE_MAPS_API_KEY"), ##<< API key (formerly optional, now mandatory). If missing, the function "stitches" a static map from map tiles
+  API_console_key, ##<< API key (formerly optional, now mandatory). If missing, the function "stitches" a static map from map tiles
   urlBase = c("http://a.tile.openstreetmap.org/", "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor")[1], ##<< tileserver URL
   tileDir= c("~/mapTiles/OSM/","~/mapTiles/Google/")[1], ##<< map tiles are stored in a local directory
   verbose=0 ##<< level of verbosity
@@ -51,6 +51,7 @@
   }
   
   if (!missing(API_console_key)){
+    print("API key provided")
     #if (!is.null(API_console_key))  urlStr <- paste0(urlStr,"&key=", API_console_key);
     
     stopifnot(all(size <=640));
@@ -257,6 +258,3 @@
   }
 })
 
-# library(png)
-# library(curl)
-# library(RgoogleMaps)
