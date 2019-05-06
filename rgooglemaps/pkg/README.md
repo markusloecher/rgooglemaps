@@ -12,6 +12,7 @@ center = c(mean(lat), mean(lon));
 zoom <- min(MaxZoom(range(lat), range(lon)));
 bb=qbbox(lat,lon)
 
+par(pty="s")
 #OSM
 myMap=GetMap(center,zoom=15)
 PlotOnStaticMap(myMap,lat=lat,lon=lon,pch=20,col=c('red', 'blue', 'green'),cex=2)
