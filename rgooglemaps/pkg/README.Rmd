@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Google has recently changed its API requirements, and ggmap users are now required to register with Google. 
+Google has recently changed its API requirements, and users are now required to register with Google. 
 	
 You can do this at https://cloud.google.com/maps-platform/. The API key requires a valid credit card which makes me very uncomfortable.
 So instead we have a workaround using map tiles:
