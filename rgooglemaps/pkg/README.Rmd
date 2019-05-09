@@ -56,3 +56,28 @@ PlotOnStaticMap(myMap,lat=lat,lon=lon,pch=20,col=c('red', 'blue', 'green'),cex=2
 
 
 Note that for each geographic region there is a one-time only download of map tiles that are needed to "stitch" together the static map. Afterwards, repeated calls simply access the stored offline map tiles. (When you change the zoom level or the locations, you will download more tiles.)
+
+
+## Compare with previously downloaded maps
+
+```{r, fig.width=8,fig.height=8}
+#Washington DC
+
+par(pty="s")
+
+mymarkers = cbind.data.frame(char = c("","",""),
+                             lat = c(38.898648,38.889112, 38.880940),
+                             lon = c(-77.037692, -77.050273, -77.03660), 
+                             col = c("blue", "green", "red"))
+
+#get the bounding box:
+bb <- qbbox(lat = mymarkers[,"lat"], lon = mymarkers[,"lon"])
+#download the map:
+mapDC <- GetMap.bbox(bb$lonR, bb$latR)
+mapDC2 <- GetMap.bbox(bb$lonR, bb$latR,destfile = "DC1_google.png",urlBase = "http://mt1.google.com/vt/lyrs=m", tileDir= "~/mapTiles/Google/")
+
+PlotOnStaticMap(mapDC2,lat = mymarkers[,"lat"], 
+                lon = mymarkers[,"lon"],cex=1.5,pch=20,
+                col=c("blue", "green", "red"))
+```
+
