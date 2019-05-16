@@ -109,7 +109,7 @@
   		  if (!is.null(TotalSleep)){
   		    Sys.sleep(round(runif(1,max=2*TotalSleep/NumTiles),1))
   		  }
-  		  download.file(url, mapFile, mode="wb", quiet = TRUE);
+        try(download.file(url, mapFile, mode="wb", quiet = TRUE));
       }
       if (returnTiles){
         res=try(readPNG(mapFile, native=TRUE))
