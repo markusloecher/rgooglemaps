@@ -16,7 +16,7 @@
  # taskfile = "Zehlendorf", ##<<  File to save the meta information to.
   zoom =13, ##<< Google maps zoom level.
  # maptype = c("roadmap","mobile","satellite","terrain","hybrid","mapmaker-roadmap","mapmaker-hybrid")[1], ##<< defines the type of map to construct. There are several possible maptype values, including satellite, terrain, hybrid, and mobile. 
-  urlBase = c("http://a.tile.openstreetmap.org/", "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor")[1], ##<< tileserver URL
+  urlBase = c("http://a.tile.openstreetmap.org/", "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/")[1], ##<< tileserver URL
   CheckExistingFiles = TRUE, ##<< logical, if TRUE check if files already exist and only download if not!
   TotalSleep = NULL, ##<< overall time (in seconds) that one is willing to add in between downloads. This is intended to lower the risk of a server denial. If NULL no call to \link{Sys.sleep} is executed
   #format = c("gif","jpg","jpg-baseline","png8","png32")[5],  ##<< (optional) defines the format of the resulting image. By default, the Static Maps API creates GIF images. There are several possible formats including GIF, JPEG and PNG types. Which format you use depends on how you intend to present the image. JPEG typically provides greater compression, while GIF and PNG provide greater detail. This version supports only PNG.
@@ -51,7 +51,7 @@
     nTiles[2] = abs(XYmax$Tile[1,2]-XYmin$Tile[1,2])+1
     #browser()
     #if (missing(center) | is.null(center)) 
-      center = c(lat=mean(latR),lon=mean(lonR))
+    center = c(lat=mean(latR),lon=mean(lonR))  
     if (verbose){
       cat("nTiles=",nTiles,", center=", round(center,3), "\n")
     }
@@ -86,7 +86,12 @@
   for (x in X){
     for (y in Y){
       if (grepl("openstreetmap",urlBase) | grepl("stamen",urlBase)){
-        url <- paste0(urlBase, zoom, "/",x , "/", y, ".png")
+        if (grepl("watercolor",urlBase) | grepl("terrain",urlBase)){
+          url <- paste0(urlBase, zoom, "/",x , "/", y, ".jpg")#not necessary as the stamenWeb server automatically converts the png request to jpg
+        } else {
+          url <- paste0(urlBase, zoom, "/",x , "/", y, ".png")
+        }
+        
       } else if (grepl("google",urlBase)){
         url <- paste0(urlBase, "&x=", x, "&y=", y, "&z=", zoom)
       } 

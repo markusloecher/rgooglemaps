@@ -5,8 +5,8 @@
 X and Y ID and zoom. For offline usage, these map tiles are stored in a local directory}
 \usage{GetMapTiles(center = c(lat = 52.431635, lon = 13.194773), lonR, 
     latR, nTiles = c(3, 3), zoom = 13, urlBase = c("http://a.tile.openstreetmap.org/", 
-        "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner", 
-        "http://tile.stamen.com/watercolor")[1], CheckExistingFiles = TRUE, 
+        "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner/", 
+        "http://tile.stamen.com/watercolor/")[1], CheckExistingFiles = TRUE, 
     TotalSleep = NULL, tileExt = ".png", tileDir = "~/mapTiles/OSM/", 
     returnTiles = FALSE, verbose = 0)}
 \arguments{
