@@ -156,7 +156,7 @@
   	}
   } else {# end of missing API key
   
-    f=genStaticMap(center=centerNum, destfile = destfile, urlBase=urlBase, tileDir=tileDir)
+    f=genStaticMap(center=centerNum, destfile = destfile, urlBase=urlBase, tileDir=tileDir, zoom=zoom)
     
     myMap <- list(lat.center = centerNum[1], lon.center  = centerNum[2], zoom = zoom, SCALE = SCALE);
     BBOX <- list(ll = XY2LatLon(myMap, -size[1]/2 + 0.5, -size[2]/2 - 0.5), ur = XY2LatLon(myMap, size[1]/2 + 0.5, size[2]/2 - 0.5) );
