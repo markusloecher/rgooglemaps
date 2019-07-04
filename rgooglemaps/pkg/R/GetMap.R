@@ -156,12 +156,17 @@
   	}
   } else {# end of missing API key
   
-    f=genStaticMap(center=centerNum, destfile = destfile, urlBase=urlBase, tileDir=tileDir, zoom=zoom)
+    f=genStaticMap(center=centerNum, destfile = destfile, urlBase=urlBase, tileDir=tileDir, zoom=zoom, size=size,verbose=verbose)
     
     myMap <- list(lat.center = centerNum[1], lon.center  = centerNum[2], zoom = zoom, SCALE = SCALE);
     BBOX <- list(ll = XY2LatLon(myMap, -size[1]/2 + 0.5, -size[2]/2 - 0.5), ur = XY2LatLon(myMap, size[1]/2 + 0.5, size[2]/2 - 0.5) );
+    url = "google"
+    if (grepl("google", urlBase)) url = "google"
+    if (grepl("stamen", urlBase)) url = "stamen"
+    if (grepl("openstreetmap", urlBase)) url = "OSM"
+    
     MetaInfo <- list(lat.center = centerNum[1], lon.center  = centerNum[2], zoom = zoom, 
-                     url = "google", BBOX = BBOX, size=size, SCALE = SCALE);
+                     url = url, BBOX = BBOX, size=size, SCALE = SCALE);
 
 
     fileBase <- substring(destfile,1, nchar(destfile)-4);

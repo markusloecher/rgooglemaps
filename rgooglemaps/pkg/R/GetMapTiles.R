@@ -81,7 +81,8 @@
   if (verbose) cat (NumTiles, "tiles to download \n")
     
   #http://a.tile.openstreetmap.org/15/9647/12321.png
-  DOWNLOAD=TRUE
+  DOWNLOAD=TRUE;sleptTotal=0
+  
   k=1;tiles=list()
   for (x in X){
     for (y in Y){
@@ -112,7 +113,9 @@
       mapFile=paste0(destfile,tileExt)
       if (DOWNLOAD){
   		  if (!is.null(TotalSleep)){
-  		    Sys.sleep(round(runif(1,max=2*TotalSleep/NumTiles),1))
+  		    sleep_a_bit = round(runif(1,max=2*TotalSleep/NumTiles),1)
+  		    Sys.sleep(sleep_a_bit)
+  		    sleptTotal= sleptTotal+sleep_a_bit
   		  }
         try(download.file(url, mapFile, mode="wb", quiet = TRUE));
       }
@@ -127,12 +130,19 @@
 		  k=k+1
     }
   }
+  cat("sleptTotal=",sleptTotal, "\n")
   mt = list(X=X,Y=Y,zoom=zoom,tileDir=tileDir,tileExt=tileExt,tiles=tiles)
   class(mt) =  "mapTiles"
   invisible(mt)	
 ### list with important information
 }, ex = function(){
   if (0){
+    zoom=5
+    nTiles = prod(NumTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=zoom))
+    GetMapTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=zoom, TotalSleep = 2*nTiles,
+                urlBase = "http://mt1.google.com/vt/lyrs=m", tileDir= "~/mapTiles/Google/")
+    
+    
   tmp=GetMapTiles("World Trade Center, NY", zoom=15,nTiles = c(5,5), verbose=1)
   PlotOnMapTiles(tmp)
   tmp=GetMapTiles("World Trade Center, NY", zoom=16,nTiles = c(20,20), verbose=1)

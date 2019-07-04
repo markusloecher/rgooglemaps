@@ -32,9 +32,10 @@ NumTiles <- structure(function#computes the necessary number of tiles from a bou
       Y = (tileXY[1,2]-(nTiles[2]-1)/2):(tileXY[1,2]+(nTiles[2]-1)/2);
     }
     
-    ExistingFiles=list.files(path=tileDir)
+    fNameServer = function(x,y) paste0(paste(zoom, x, y, sep="_"),tileExt)
+    fList = as.vector(outer(X,Y,FUN = fNameServer))
     
-    fList = as.vector(outer(X,Y,FUN = function(x,y) paste0(paste(zoom, x, y, sep="_"),tileExt)))
+    ExistingFiles=list.files(path=tileDir)
     
     fExist = sum(fList %in% ExistingFiles)
     cat("still need to download", prod(nTiles)-fExist,"tiles from ", prod(nTiles), "requested files.\n")
@@ -44,6 +45,12 @@ NumTiles <- structure(function#computes the necessary number of tiles from a bou
   ### tuple with number of tiles for lon and lat extent
 }, ex = function(){
   #US bounding box:
-  NumTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=8)
-  
+  for (zoom in 4:15) {
+    cat("OSM, zoom =", zoom, "\n")
+    NumTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=zoom)
+  }
+  for (zoom in 4:15) {
+    cat("Google, zoom =", zoom, "\n")
+    NumTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=zoom, tileDir= "~/mapTiles/Google/")
+  }
 })
