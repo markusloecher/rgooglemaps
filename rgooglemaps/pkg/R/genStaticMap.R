@@ -6,8 +6,8 @@ genStaticMap = structure(function#generates a "static map" from map tiles by "st
   zoom = 15, ##<< zoom
   size = c(640,640), ##<< size (in pixels) of "stitched" map 
   destfile = tempfile("staticMap",fileext = ".png"), ##<<  File to load the map image from or save to, depending on \code{NEWMAP}.
-  urlBase = c("http://a.tile.openstreetmap.org/", "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor")[1], ##<< tileserver URL
-  tileDir= c("~/mapTiles/OSM/","~/mapTiles/Google/")[1], ##<< map tiles are stored in a local directory
+  urlBase = "http://a.tile.openstreetmap.org/", ##<< tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor" 
+  tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"
   verbose=0, ##<< level of verbosity
   ... ##<< further arguments to be passed to \code{FUN}
 ){
@@ -89,12 +89,5 @@ invisible(destfile)
   }
 })
 
-deg2num<-function(lat_deg, lon_deg, zoom){
-  lat_rad <- lat_deg * pi /180
-  n <- 2.0 ^ zoom
-  xtile <- floor((lon_deg + 180.0) / 360.0 * n)
-  ytile = floor((1.0 - log(tan(lat_rad) + (1 / cos(lat_rad))) / pi) / 2.0 * n)
-  return( c(xtile, ytile))
-  #  return(paste(paste("https://a.tile.openstreetmap.org", zoom, xtile, ytile, sep="/"),".png",sep=""))
-}
+
 

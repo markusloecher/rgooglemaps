@@ -2,10 +2,11 @@
 \alias{PlotOnStaticMap}
 \title{overlays plot on background image of map tile}
 \description{This function is the workhorse of the package RgoogleMaps. It overlays plot on background image of map tile}
-\usage{PlotOnStaticMap(MyMap, lat, lon, destfile, zoom = NULL, size, 
-    GRAYSCALE = FALSE, add = FALSE, FUN = points, mar = c(0, 
-        0, 0, 0), NEWMAP = TRUE, TrueProj = TRUE, axes = FALSE, 
-    atX = NULL, atY = NULL, verbose = 0, ...)}
+\usage{PlotOnStaticMap(MyMap, lat, lon, destfile, zoom = NULL, 
+    size, GRAYSCALE = FALSE, add = FALSE, FUN = points, 
+    mar = c(0, 0, 0, 0), NEWMAP = TRUE, TrueProj = TRUE, 
+    axes = FALSE, atX = NULL, atY = NULL, verbose = 0, 
+    ...)}
 \arguments{
   \item{MyMap}{optional map object}
   \item{lat}{latitude values to be overlaid}

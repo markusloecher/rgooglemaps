@@ -2,7 +2,8 @@
 \alias{DF2SpatialPointsDataFrame}
 \title{change data.frame to SpatialPointsDataFrame}
 \description{This function modifies an object of class data.frame to one of class SpatialPointsDataFrame}
-\usage{DF2SpatialPointsDataFrame(x, coords = c("x", "y"), crs = sp::CRS("+init=epsg:28992"))}
+\usage{DF2SpatialPointsDataFrame(x, coords = c("x", "y"), 
+    crs = sp::CRS("+init=epsg:28992"))}
 \arguments{
   \item{x}{data frame to be converted}
   \item{coords}{which columns are coordinates}

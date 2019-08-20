@@ -2,18 +2,17 @@
 \alias{genStaticMap}
 \title{generates a "static map" from map tiles by "stitching" them together}
 \description{necssary because the Google static maps API requires a key now}
-\usage{genStaticMap(center, zoom = 15, size = c(640, 640), destfile = tempfile("staticMap", 
-    fileext = ".png"), urlBase = c("http://a.tile.openstreetmap.org/", 
-    "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner", 
-    "http://tile.stamen.com/watercolor")[1], tileDir = c("/mapTiles/Google/")[1], 
+\usage{genStaticMap(center, zoom = 15, size = c(640, 640), 
+    destfile = tempfile("staticMap", fileext = ".png"), 
+    urlBase = "http://a.tile.openstreetmap.org/", tileDir = "~/mapTiles/OSM/", 
     verbose = 0, ...)}
 \arguments{
   \item{center}{optional center}
   \item{zoom}{zoom}
   \item{size}{size (in pixels) of "stitched" map}
   \item{destfile}{File to load the map image from or save to, depending on \code{NEWMAP}.}
-  \item{urlBase}{tileserver URL}
-  \item{tileDir}{map tiles are stored in a local directory}
+  \item{urlBase}{tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor"}
+  \item{tileDir}{map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"}
   \item{verbose}{level of verbosity}
   \item{\dots}{further arguments to be passed to \code{FUN}}
 }

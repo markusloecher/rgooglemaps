@@ -5,16 +5,16 @@
 center and zoom. Many additional arguments allow the user to customize 
 the map tile.
 documentation at https://developers.google.com/maps/documentation/staticmaps/}
-\usage{GetMap(center = c(lat = 42, lon = -76), size = c(640, 640), destfile = tempfile("staticMap", 
-    fileext = ".png"), zoom = 12, markers, path = "", span, frame, 
-    hl, sensor = "true", maptype = c("roadmap", "mobile", "satellite", 
-        "terrain", "hybrid", "mapmaker-roadmap", "mapmaker-hybrid")[2], 
-    format = c("gif", "jpg", "jpg-baseline", "png8", "png32")[5], 
-    extraURL = "", RETURNIMAGE = TRUE, GRAYSCALE = FALSE, NEWMAP = TRUE, 
-    SCALE = 1, API_console_key, urlBase = c("http://a.tile.openstreetmap.org/", 
-        "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner", 
-        "http://tile.stamen.com/watercolor")[1], tileDir = c("/mapTiles/Google/")[1], 
-    verbose = 0)}
+\usage{GetMap(center = c(lat = 42, lon = -76), size = c(640, 
+    640), destfile = tempfile("staticMap", fileext = ".png"), 
+    zoom = 12, markers, path = "", span, frame, hl, 
+    sensor = "true", maptype = c("roadmap", "mobile", 
+        "satellite", "terrain", "hybrid", "mapmaker-roadmap", 
+        "mapmaker-hybrid")[2], format = c("gif", "jpg", 
+        "jpg-baseline", "png8", "png32")[5], extraURL = "", 
+    RETURNIMAGE = TRUE, GRAYSCALE = FALSE, NEWMAP = TRUE, 
+    SCALE = 1, API_console_key, urlBase = "http://a.tile.openstreetmap.org/", 
+    tileDir = "~/mapTiles/OSM/", verbose = 0)}
 \arguments{
   \item{center}{optional center (lat first,lon second  )}
   \item{size}{desired size of the map tile image. defaults to maximum size returned by the Gogle server, which is 640x640 pixels}
@@ -34,8 +34,8 @@ documentation at https://developers.google.com/maps/documentation/staticmaps/}
   \item{NEWMAP}{if TRUE, query the Google server and save to \code{destfile}, if FALSE load from destfile.}
   \item{SCALE}{use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map}
   \item{API_console_key}{API key (formerly optional, now mandatory). If missing, the function "stitches" a static map from map tiles}
-  \item{urlBase}{tileserver URL}
-  \item{tileDir}{map tiles are stored in a local directory}
+  \item{urlBase}{tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor"}
+  \item{tileDir}{map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"}
   \item{verbose}{level of verbosity}
 }
 
@@ -64,7 +64,7 @@ if (0){#takes too long to run for CRAN check
   #add a path, i.e. polyline:
   myMap <- GetMap(center=center, zoom=zoom,
                   path = paste0("&path=color:0x0000ff|weight:5|40.737102,-73.990318|",
-                                "40.749825,-73.987963|40.752946,-73.987384|40.755823,-73.986397"));
+                  "40.749825,-73.987963|40.752946,-73.987384|40.755823,-73.986397"));
   #use implicit geo coding 
   BrooklynMap <- GetMap(center="Brooklyn", zoom=13)
   PlotOnStaticMap(BrooklynMap)

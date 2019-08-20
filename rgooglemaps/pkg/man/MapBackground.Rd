@@ -2,9 +2,10 @@
 \alias{MapBackground}
 \title{get static Map from the Google server}
 \description{get static Map from the Google server}
-\usage{MapBackground(lat, lon, destfile, NEWMAP = TRUE, myTile, zoom = NULL, 
-    size = c(640, 640), GRAYSCALE = FALSE, mar = c(0, 0, 0, 0), 
-    PLOT = FALSE, verbose = 1, ...)}
+\usage{MapBackground(lat, lon, destfile, NEWMAP = TRUE, myTile, 
+    zoom = NULL, size = c(640, 640), GRAYSCALE = FALSE, 
+    mar = c(0, 0, 0, 0), PLOT = FALSE, verbose = 1, 
+    ...)}
 \arguments{
   \item{lat}{
 }

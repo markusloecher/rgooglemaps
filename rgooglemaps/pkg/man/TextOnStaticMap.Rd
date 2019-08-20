@@ -2,8 +2,9 @@
 \alias{TextOnStaticMap}
 \title{plots text on map}
 \description{TextOnStaticMap draws the strings given in the vector labels at the coordinates given by x and y on a map. y may be missing since xy.coords(x,y) is used for construction of the coordinates.}
-\usage{TextOnStaticMap(MyMap, lat, lon, labels = seq_along(lat), TrueProj = TRUE, 
-    FUN = text, add = FALSE, verbose = 0, ...)}
+\usage{TextOnStaticMap(MyMap, lat, lon, labels = seq_along(lat), 
+    TrueProj = TRUE, FUN = text, add = FALSE, verbose = 0, 
+    ...)}
 \arguments{
   \item{MyMap}{map image returned from e.g. \code{GetMap()}}
   \item{lat}{latitude where to put text.}

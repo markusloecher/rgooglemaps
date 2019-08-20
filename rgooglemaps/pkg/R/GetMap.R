@@ -22,8 +22,8 @@
   NEWMAP = TRUE, ##<< if TRUE, query the Google server and save to \code{destfile}, if FALSE load from destfile. 
   SCALE = 1, ##<< use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map
   API_console_key, ##<< API key (formerly optional, now mandatory). If missing, the function "stitches" a static map from map tiles
-  urlBase = c("http://a.tile.openstreetmap.org/", "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor")[1], ##<< tileserver URL
-  tileDir= c("~/mapTiles/OSM/","~/mapTiles/Google/")[1], ##<< map tiles are stored in a local directory
+  urlBase = "http://a.tile.openstreetmap.org/", ##<< tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor" 
+  tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"
   verbose=0 ##<< level of verbosity
 ){
   ##note<<Note that size is in order (lon, lat)
@@ -211,7 +211,7 @@
     #add a path, i.e. polyline:
     myMap <- GetMap(center=center, zoom=zoom,
                     path = paste0("&path=color:0x0000ff|weight:5|40.737102,-73.990318|",
-                                  "40.749825,-73.987963|40.752946,-73.987384|40.755823,-73.986397"));
+                    "40.749825,-73.987963|40.752946,-73.987384|40.755823,-73.986397"));
     #use implicit geo coding 
     BrooklynMap <- GetMap(center="Brooklyn", zoom=13)
     PlotOnStaticMap(BrooklynMap)

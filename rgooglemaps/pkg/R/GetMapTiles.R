@@ -16,7 +16,7 @@
  # taskfile = "Zehlendorf", ##<<  File to save the meta information to.
   zoom =13, ##<< Google maps zoom level.
  # maptype = c("roadmap","mobile","satellite","terrain","hybrid","mapmaker-roadmap","mapmaker-hybrid")[1], ##<< defines the type of map to construct. There are several possible maptype values, including satellite, terrain, hybrid, and mobile. 
-  urlBase = c("http://a.tile.openstreetmap.org/", "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/")[1], ##<< tileserver URL
+  urlBase = "http://a.tile.openstreetmap.org/", ##<< tileserver URL, alternatives would be "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/"
   CheckExistingFiles = TRUE, ##<< logical, if TRUE check if files already exist and only download if not!
   TotalSleep = NULL, ##<< overall time (in seconds) that one is willing to add in between downloads. This is intended to lower the risk of a server denial. If NULL no call to \link{Sys.sleep} is executed
   #format = c("gif","jpg","jpg-baseline","png8","png32")[5],  ##<< (optional) defines the format of the resulting image. By default, the Static Maps API creates GIF images. There are several possible formats including GIF, JPEG and PNG types. Which format you use depends on how you intend to present the image. JPEG typically provides greater compression, while GIF and PNG provide greater detail. This version supports only PNG.
@@ -25,7 +25,7 @@
   #NEWMAP = TRUE, ##<< if TRUE, query the Google server and save to \code{destfile}, if FALSE load from destfile. 
   #SCALE = 1, ##<< use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map
   tileExt = ".png", ##<< image type of tile
-  tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory
+  tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"
   returnTiles = FALSE, ##<< return tiles in a list?
   verbose=0 ##<< level of verbosity
 ){

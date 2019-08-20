@@ -4,10 +4,10 @@
 \description{This function creates a bubble plot of spatial
 data, with options for bicolour residual plots.}
 \usage{bubbleMap(SP, coords = c("x", "y"), crs = sp::CRS("+proj=longlat +datum=WGS84"), 
-    map, filename = "", zcol = 1, max.radius = 100, key.entries, 
-    do.sqrt = TRUE, colPalette = NULL, strokeColor = "#FFAA00", 
-    alpha = 0.7, strokeWeight = 1, LEGEND = TRUE, legendLoc = "topleft", 
-    verbose = 0)}
+    map, filename = "", zcol = 1, max.radius = 100, 
+    key.entries, do.sqrt = TRUE, colPalette = NULL, 
+    strokeColor = "#FFAA00", alpha = 0.7, strokeWeight = 1, 
+    LEGEND = TRUE, legendLoc = "topleft", verbose = 0)}
 \arguments{
   \item{SP}{object of class data.frame or \link[sp]{SpatialPointsDataFrame-class} with associated coordinate reference systems}
   \item{coords}{names of coordinate columns}

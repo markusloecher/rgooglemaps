@@ -5,12 +5,12 @@
 center and zoom. Many additional arguments allow the user to customize 
 the map tile.}
 \usage{GetBingMap(center = c(lat = 42, lon = -76), mapArea = c(45.219, 
-    -122.325, 47.61, -122.107), size = c(640, 640), destfile, 
-    zoom = 12, markers, path = "", maptype = c("Road", "Aerial ", 
-        "AerialWithLabels")[1], format = c("png", "gif", "jpg", 
-        "jpg-baseline", "png8", "png32")[1], extraURL = "", RETURNIMAGE = TRUE, 
-    GRAYSCALE = FALSE, NEWMAP = TRUE, SCALE = 1, apiKey = NULL, 
-    verbose = 0)}
+    -122.325, 47.61, -122.107), size = c(640, 640), 
+    destfile, zoom = 12, markers, path = "", maptype = c("Road", 
+        "Aerial ", "AerialWithLabels")[1], format = c("png", 
+        "gif", "jpg", "jpg-baseline", "png8", "png32")[1], 
+    extraURL = "", RETURNIMAGE = TRUE, GRAYSCALE = FALSE, 
+    NEWMAP = TRUE, SCALE = 1, apiKey = NULL, verbose = 0)}
 \arguments{
   \item{center}{optional center (lat first,lon second  )}
   \item{mapArea}{A rectangular area specified as a bounding box (ll,ur). Required when a center point or set of route points are not specified}

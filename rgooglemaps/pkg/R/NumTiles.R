@@ -5,7 +5,7 @@ NumTiles <- structure(function#computes the necessary number of tiles from a bou
    zoom =13, ##<< zoom level
    CheckExistingFiles = TRUE, ##<< logical, if TRUE check if files already exist and only download if not!
    tileExt = ".png", ##<< image type of tile
-   tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory
+   tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"
    verbose=0 ##<< level of verbosity
 ){
   nTiles=c(0,0)
@@ -44,13 +44,15 @@ NumTiles <- structure(function#computes the necessary number of tiles from a bou
   return(nTiles) 
   ### tuple with number of tiles for lon and lat extent
 }, ex = function(){
-  #US bounding box:
-  for (zoom in 4:15) {
-    cat("OSM, zoom =", zoom, "\n")
-    NumTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=zoom)
-  }
-  for (zoom in 4:15) {
-    cat("Google, zoom =", zoom, "\n")
-    NumTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=zoom, tileDir= "~/mapTiles/Google/")
+  if (0){
+    #US bounding box:
+    for (zoom in 4:15) {
+      cat("OSM, zoom =", zoom, "\n")
+      NumTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=zoom)
+    }
+    for (zoom in 4:15) {
+      cat("Google, zoom =", zoom, "\n")
+      NumTiles(lonR=c(-135,-66), latR=c(25,54) , zoom=zoom, tileDir= "~/mapTiles/Google/")
+    }
   }
 })

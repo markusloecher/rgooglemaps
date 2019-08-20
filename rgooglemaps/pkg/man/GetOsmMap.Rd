@@ -5,9 +5,9 @@
 Instead of a zoom, center and size, the user supplies a scale parameter and a lat/lon bounding box. 
 The scale determines the image size.}
 \usage{GetOsmMap(lonR = c(-74.02132, -73.98622), latR = c(40.69983, 
-    40.72595), scale = 20000, destfile = "MyTile.png", format = "png", 
-    RETURNIMAGE = TRUE, GRAYSCALE = FALSE, NEWMAP = TRUE, verbose = 1, 
-    ...)}
+    40.72595), scale = 20000, destfile = "MyTile.png", 
+    format = "png", RETURNIMAGE = TRUE, GRAYSCALE = FALSE, 
+    NEWMAP = TRUE, verbose = 1, ...)}
 \arguments{
   \item{lonR}{longitude range}
   \item{latR}{latitude range}

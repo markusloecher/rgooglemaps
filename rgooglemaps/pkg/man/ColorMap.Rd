@@ -2,10 +2,11 @@
 \alias{ColorMap}
 \title{Plot Levels of a Variable in a Colour-Coded Map}
 \description{Plot Levels of a Variable in a Colour-Coded Map}
-\usage{ColorMap(values, map = NULL, polys = NULL, log = FALSE, nclr = 7, 
-    include.legend = list(TRUE), round = 3, brks = NULL, legend = NULL, 
-    location = "topright", rev = FALSE, alpha = 0.5, GRAY = FALSE, 
-    palette = c("YlOrRd", "RdYlGn", "Spectral")[1], textInPolys = NULL, 
+\usage{ColorMap(values, map = NULL, polys = NULL, log = FALSE, 
+    nclr = 7, include.legend = list(TRUE), round = 3, 
+    brks = NULL, legend = NULL, location = "topright", 
+    rev = FALSE, alpha = 0.5, GRAY = FALSE, palette = c("YlOrRd", 
+        "RdYlGn", "Spectral")[1], textInPolys = NULL, 
     ...)}
 \arguments{
   \item{values}{variable to plot}

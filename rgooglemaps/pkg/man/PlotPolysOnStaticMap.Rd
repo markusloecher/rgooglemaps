@@ -2,8 +2,9 @@
 \alias{PlotPolysOnStaticMap}
 \title{plots polygons on map}
 \description{This function plots/overlays polygons on a map. Typically, the polygons originate from a shapefile.}
-\usage{PlotPolysOnStaticMap(MyMap, polys, col, border = NULL, lwd = 0.25, 
-    verbose = 0, add = TRUE, textInPolys = NULL, ...)}
+\usage{PlotPolysOnStaticMap(MyMap, polys, col, border = NULL, 
+    lwd = 0.25, verbose = 0, add = TRUE, textInPolys = NULL, 
+    ...)}
 \arguments{
   \item{MyMap}{map image returned from e.g. \code{GetMap()}}
   \item{polys}{or of class \link[sp]{SpatialPolygons} from the package sp

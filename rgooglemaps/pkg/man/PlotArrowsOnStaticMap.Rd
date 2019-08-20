@@ -2,9 +2,9 @@
 \alias{PlotArrowsOnStaticMap}
 \title{plots arrows or segments on map }
 \description{This function plots/overlays arrows or segments on a map.}
-\usage{PlotArrowsOnStaticMap(MyMap, lat0, lon0, lat1 = lat0, lon1 = lon0, 
-    TrueProj = TRUE, FUN = arrows, add = FALSE, verbose = 0, 
-    ...)}
+\usage{PlotArrowsOnStaticMap(MyMap, lat0, lon0, lat1 = lat0, 
+    lon1 = lon0, TrueProj = TRUE, FUN = arrows, add = FALSE, 
+    verbose = 0, ...)}
 \arguments{
   \item{MyMap}{map image returned from e.g. \code{GetMap()}}
   \item{lat0}{latitude valuesof points FROM which to draw.}

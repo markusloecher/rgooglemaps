@@ -2,8 +2,9 @@
 \alias{PlotOnMapTiles}
 \title{plots on map tiles by "stitching" them together}
 \description{Counterpart to \code{PlotOnStaticMap} for map tiles}
-\usage{PlotOnMapTiles(mt, lat, lon, center, size = c(768, 768), add = FALSE, 
-    FUN = points, mar = c(0, 0, 0, 0), verbose = 0, ...)}
+\usage{PlotOnMapTiles(mt, lat, lon, center, size = c(768, 
+    768), add = FALSE, FUN = points, mar = c(0, 0, 
+    0, 0), verbose = 0, ...)}
 \arguments{
   \item{mt}{list returned by \code{GetMapTiles}}
   \item{lat}{latitude values to be overlaid, if any}

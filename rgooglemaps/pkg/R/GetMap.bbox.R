@@ -13,8 +13,8 @@
   zoom,  ##<< Google maps zoom level. optional
   verbose=0, ##<< level of verbosity
   SCALE = 1, ##<< use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map
-  urlBase = c("http://a.tile.openstreetmap.org/", "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor")[1], ##<< tileserver URL
-  tileDir= c("~/mapTiles/OSM/","~/mapTiles/Google/")[1], ##<< map tiles are stored in a local directory
+  urlBase = "http://a.tile.openstreetmap.org/", ##<< tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor" 
+  tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"
   ... ##<< extra arguments to \link{GetMap} 
 ){
   	if (missing(zoom)) zoom <- min(MaxZoom(latR, lonR, size));
