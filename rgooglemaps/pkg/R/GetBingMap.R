@@ -163,7 +163,7 @@
   if (0){
     #for bing maps you will need your own API key, 
     #sign up at https://msdn.microsoft.com/en-us/library/ff428642.aspx
-    apiKey = scan("C:/Users/loecherm/Dropbox/stuff/bingAPIkey.txt",what="")
+    apiKey = scan("bingAPIkey.txt",what="")
     map1=GetBingMap(center=c(47.619048,-122.35384),zoom=15,apiKey=apiKey, 
                     verbose=1, destfile="Seattle.png") 
     PlotOnStaticMap(map1)

@@ -14,6 +14,14 @@ genStaticMap = structure(function#generates a "static map" from map tiles by "st
   #library(png)
   nTiles = round(size/256)+3
   #browser() 
+  if (grepl("lyrs=s|lyrs=y",urlBase)) tileExt = ".jpg" #satellite or hybrid
+  if (tileExt == ".jpg") {
+    readImg = jpeg::readJPEG
+  } else if (tileExt == ".png")  {
+    readImg = png::readPNG
+  }
+  
+  
   mt = GetMapTiles(center=center,zoom=zoom,tileDir = tileDir,
                    urlBase=urlBase, 
                    nTiles = nTiles)
@@ -45,7 +53,7 @@ genStaticMap = structure(function#generates a "static map" from map tiles by "st
         k=k+1
         if (length(mt$tiles)==0){
           mapFile = file.path(mt$tileDir, paste(mt$zoom, x, y, sep="_"))
-          tile=readPNG(paste0(mapFile,mt$tileExt), native=TRUE);
+          tile=readImg(paste0(mapFile,mt$tileExt), native=TRUE);
         } else {
           tile = mt$tiles[[k]]
         }

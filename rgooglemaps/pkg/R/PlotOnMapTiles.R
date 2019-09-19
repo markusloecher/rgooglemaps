@@ -13,6 +13,11 @@ PlotOnMapTiles = structure(function#plots on map tiles by "stitching" them toget
   ... ##<< further arguments to be passed to \code{FUN}
 ){
   #library(png)
+  if (mt$tileExt == ".jpg") {
+    readImg = jpeg::readJPEG
+  } else if (mt$tileExt == ".png")  {
+    readImg = png::readPNG
+  }
   par(mar=mar)
   tw = 257/256#257/256 #tile width and height
   X=mt$X;Y=mt$Y
@@ -42,7 +47,7 @@ PlotOnMapTiles = structure(function#plots on map tiles by "stitching" them toget
       for (y in Y){
         if (length(mt$tiles)==0){
           mapFile = file.path(mt$tileDir, paste(mt$zoom, x, y, sep="_"))
-          tile=readPNG(paste0(mapFile,mt$tileExt), native=TRUE);
+          tile=readImg(paste0(mapFile,mt$tileExt), native=TRUE);
         } else {
           tile = mt$tiles[[k]]
           k=k+1

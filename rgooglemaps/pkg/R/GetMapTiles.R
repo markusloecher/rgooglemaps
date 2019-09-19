@@ -7,6 +7,11 @@
 `GetMapTiles` <- structure(function# download map tiles from specified map tile servers such as openstreetmap or Google
 ### Query the server for map tiles, defined uniquely by their 
 ### X and Y ID and zoom. For offline usage, these map tiles are stored in a local directory
+### Example OSM:http://a.tile.openstreetmap.org/10/549/335.png
+### Also see https://wiki.openstreetmap.org/wiki/Tile_servers
+### Example Google mobile: http://mt1.google.com/vt/lyrs=m&x=1325&y=3143&z=13
+### Example Google satellite: http://mt1.google.com/vt/lyrs=s&x=1325&y=3143&z=13
+
 (
   center=c(lat=52.431635, lon=13.194773), ##<< optional center (lat first,lon second  )
   lonR, ##<< longitude range
@@ -95,6 +100,7 @@
         
       } else if (grepl("google",urlBase)){
         url <- paste0(urlBase, "&x=", x, "&y=", y, "&z=", zoom)
+        if (grepl("lyrs=s|lyrs=y",urlBase)) tileExt = ".jpg" #satellite or hybrid
       } 
 		  #browser()
       #print(url)
@@ -119,8 +125,13 @@
   		  }
         try(download.file(url, mapFile, mode="wb", quiet = TRUE));
       }
+      if (tileExt == ".jpg") {
+        readImg = jpeg::readJPEG
+      } else if (tileExt == ".png")  {
+        readImg = png::readPNG
+      }
       if (returnTiles){
-        res=try(readPNG(mapFile, native=TRUE))
+        res=try(readImg(mapFile, native=TRUE))
         if (class(res)=="try-error"){#download again
           download.file(url, mapFile, mode="wb", quiet = TRUE);
         } else tiles[[k]]=res
