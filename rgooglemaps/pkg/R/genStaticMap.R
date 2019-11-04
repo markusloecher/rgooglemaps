@@ -6,8 +6,10 @@ genStaticMap = structure(function#generates a "static map" from map tiles by "st
   zoom = 15, ##<< zoom
   size = c(640,640), ##<< size (in pixels) of "stitched" map 
   destfile = tempfile("staticMap",fileext = ".png"), ##<<  File to load the map image from or save to, depending on \code{NEWMAP}.
-  urlBase = "http://a.tile.openstreetmap.org/", ##<< tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor" 
-  tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"
+  type = c("google", "google-m","google-s","osm", "osm-hot", "stamen-toner", "stamen-terrain", "stamen-watercolor")[1],  ##<< choice of tile server
+  urlBase = "http://mt1.google.com/vt/lyrs=m" , ##<< tileserver URL, alternatives would be "http://a.tile.openstreetmap.org/", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/"
+  tileDir= "/tmp/", ##<< map tiles can be stored in a local directory, e.g. "~/mapTiles/Google/"
+  tileExt = ".png", ##<< image type of tile
   verbose=0, ##<< level of verbosity
   ... ##<< further arguments to be passed to \code{FUN}
 ){
@@ -23,7 +25,7 @@ genStaticMap = structure(function#generates a "static map" from map tiles by "st
   
   
   mt = GetMapTiles(center=center,zoom=zoom,tileDir = tileDir,
-                   urlBase=urlBase, 
+                   type=type,urlBase=urlBase, 
                    nTiles = nTiles)
   
   tw = 257/256#257/256 #tile width and height

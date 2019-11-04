@@ -6,8 +6,10 @@ Multiple additional arguments allow the user to customize the map tile.}
 \usage{GetMap.bbox(lonR, latR, center, size = c(640, 640), 
     destfile = "MyTile.png", MINIMUMSIZE = FALSE, RETURNIMAGE = TRUE, 
     GRAYSCALE = FALSE, NEWMAP = TRUE, zoom, verbose = 0, 
-    SCALE = 1, urlBase = "http://a.tile.openstreetmap.org/", 
-    tileDir = "~/mapTiles/OSM/", ...)}
+    SCALE = 1, type = c("google", "google-m", "google-s", 
+        "osm", "osm-hot", "stamen-toner", "stamen-terrain", 
+        "stamen-watercolor")[1], urlBase = "http://mt1.google.com/vt/lyrs=m", 
+    tileDir = "/tmp/", ...)}
 \arguments{
   \item{lonR}{longitude range}
   \item{latR}{latitude range}
@@ -21,8 +23,9 @@ Multiple additional arguments allow the user to customize the map tile.}
   \item{zoom}{Google maps zoom level. optional}
   \item{verbose}{level of verbosity}
   \item{SCALE}{use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map}
-  \item{urlBase}{tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor"}
-  \item{tileDir}{map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"}
+  \item{type}{choice of tile server}
+  \item{urlBase}{tileserver URL, alternatives would be "http://a.tile.openstreetmap.org/", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/"}
+  \item{tileDir}{map tiles can be stored in a local directory, e.g. "~/mapTiles/Google/"}
   \item{\dots}{extra arguments to \link{GetMap}}
 }
 

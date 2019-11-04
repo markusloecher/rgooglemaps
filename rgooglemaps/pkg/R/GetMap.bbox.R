@@ -13,8 +13,9 @@
   zoom,  ##<< Google maps zoom level. optional
   verbose=0, ##<< level of verbosity
   SCALE = 1, ##<< use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map
-  urlBase = "http://a.tile.openstreetmap.org/", ##<< tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor" 
-  tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"
+  type = c("google", "google-m","google-s","osm", "osm-hot", "stamen-toner", "stamen-terrain", "stamen-watercolor")[1],  ##<< choice of tile server
+  urlBase = "http://mt1.google.com/vt/lyrs=m" , ##<< tileserver URL, alternatives would be "http://a.tile.openstreetmap.org/", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/"
+  tileDir= "/tmp/", ##<< map tiles can be stored in a local directory, e.g. "~/mapTiles/Google/"
   ... ##<< extra arguments to \link{GetMap} 
 ){
   	if (missing(zoom)) zoom <- min(MaxZoom(latR, lonR, size));
@@ -45,7 +46,7 @@
     	if (verbose) cat("new size: ", size, "\n")
     }
  	#if (NEWMAP) 
- 	return(GetMap(center = c(lat.center, lon.center), zoom = zoom, size=size, destfile = destfile, RETURNIMAGE = RETURNIMAGE, GRAYSCALE = GRAYSCALE, SCALE=SCALE, urlBase=urlBase, tileDir=tileDir, verbose = verbose, ...));
+ 	return(GetMap(center = c(lat.center, lon.center), zoom = zoom, size=size, destfile = destfile, RETURNIMAGE = RETURNIMAGE, GRAYSCALE = GRAYSCALE, SCALE=SCALE, type=type, urlBase=urlBase, tileDir=tileDir, verbose = verbose, ...));
  ### map tile
 
  }, ex = function(){

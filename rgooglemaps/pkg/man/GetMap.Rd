@@ -13,8 +13,11 @@ documentation at https://developers.google.com/maps/documentation/staticmaps/}
         "mapmaker-hybrid")[2], format = c("gif", "jpg", 
         "jpg-baseline", "png8", "png32")[5], extraURL = "", 
     RETURNIMAGE = TRUE, GRAYSCALE = FALSE, NEWMAP = TRUE, 
-    SCALE = 1, API_console_key, urlBase = "http://a.tile.openstreetmap.org/", 
-    tileDir = "~/mapTiles/OSM/", verbose = 0)}
+    SCALE = 1, API_console_key, type = c("google", 
+        "google-m", "google-s", "osm", "osm-hot", "stamen-toner", 
+        "stamen-terrain", "stamen-watercolor")[1], 
+    urlBase = "http://mt1.google.com/vt/lyrs=m", tileDir = "/tmp/", 
+    verbose = 0)}
 \arguments{
   \item{center}{optional center (lat first,lon second  )}
   \item{size}{desired size of the map tile image. defaults to maximum size returned by the Gogle server, which is 640x640 pixels}
@@ -34,8 +37,9 @@ documentation at https://developers.google.com/maps/documentation/staticmaps/}
   \item{NEWMAP}{if TRUE, query the Google server and save to \code{destfile}, if FALSE load from destfile.}
   \item{SCALE}{use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map}
   \item{API_console_key}{API key (formerly optional, now mandatory). If missing, the function "stitches" a static map from map tiles}
-  \item{urlBase}{tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor"}
-  \item{tileDir}{map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"}
+  \item{type}{choice of tile server}
+  \item{urlBase}{tileserver URL, alternatives would be "http://a.tile.openstreetmap.org/", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/"}
+  \item{tileDir}{map tiles can be stored in a local directory, e.g. "~/mapTiles/Google/"}
   \item{verbose}{level of verbosity}
 }
 

@@ -7,19 +7,19 @@
   zoom ##<< optional zoom level. If missing, taken from \code{MyMap}
 ){
   
-  transfXY<-function(MyMap,oldX, oldY)## only use for non proper coordinate transformations
-  {
-    xlim<-c(MyMap[["BBOX"]][["ll"]][2],MyMap[["BBOX"]][["ur"]][2])
-    ylim<-c(MyMap[["BBOX"]][["ll"]][1],MyMap[["BBOX"]][["ur"]][1])
-    Rcoords<-list(newX=(oldX-xlim[1])/(xlim[2]-xlim[1]),
-                  newY=(oldY-ylim[1])/(ylim[2]-ylim[1]))
-    #browser()
-    return(Rcoords)
-  }
-  
-  if (MyMap$url == "OSM") {
-    return(transfXY(MyMap,lon,lat))
-  }
+  # transfXY<-function(MyMap,oldX, oldY)## only use for non proper coordinate transformations
+  # {
+  #   xlim<-c(MyMap[["BBOX"]][["ll"]][2],MyMap[["BBOX"]][["ur"]][2])
+  #   ylim<-c(MyMap[["BBOX"]][["ll"]][1],MyMap[["BBOX"]][["ur"]][1])
+  #   Rcoords<-list(newX=(oldX-xlim[1])/(xlim[2]-xlim[1]),
+  #                 newY=(oldY-ylim[1])/(ylim[2]-ylim[1]))
+  #   #browser()
+  #   return(Rcoords)
+  # }
+  # 
+  # if (MyMap$url == "OSM") {
+  #   return(transfXY(MyMap,lon,lat))
+  # }
    lat.center <- MyMap[[1]];
    lon.center <- MyMap[[2]];
    if (missing(zoom)) zoom <- MyMap[[3]];

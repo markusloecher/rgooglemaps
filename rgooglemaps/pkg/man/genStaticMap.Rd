@@ -4,15 +4,20 @@
 \description{necssary because the Google static maps API requires a key now}
 \usage{genStaticMap(center, zoom = 15, size = c(640, 640), 
     destfile = tempfile("staticMap", fileext = ".png"), 
-    urlBase = "http://a.tile.openstreetmap.org/", tileDir = "~/mapTiles/OSM/", 
-    verbose = 0, ...)}
+    type = c("google", "google-m", "google-s", "osm", 
+        "osm-hot", "stamen-toner", "stamen-terrain", 
+        "stamen-watercolor")[1], urlBase = "http://mt1.google.com/vt/lyrs=m", 
+    tileDir = "/tmp/", tileExt = ".png", verbose = 0, 
+    ...)}
 \arguments{
   \item{center}{optional center}
   \item{zoom}{zoom}
   \item{size}{size (in pixels) of "stitched" map}
   \item{destfile}{File to load the map image from or save to, depending on \code{NEWMAP}.}
-  \item{urlBase}{tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor"}
-  \item{tileDir}{map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"}
+  \item{type}{choice of tile server}
+  \item{urlBase}{tileserver URL, alternatives would be "http://a.tile.openstreetmap.org/", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/"}
+  \item{tileDir}{map tiles can be stored in a local directory, e.g. "~/mapTiles/Google/"}
+  \item{tileExt}{image type of tile}
   \item{verbose}{level of verbosity}
   \item{\dots}{further arguments to be passed to \code{FUN}}
 }

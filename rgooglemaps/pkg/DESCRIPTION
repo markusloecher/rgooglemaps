@@ -5,7 +5,7 @@ Version: 1.4.5
 Date: 2019-09-18
 Depends: R (>= 2.10)
 Imports: graphics, stats, utils, grDevices, methods, png
-Suggests: PBSmapping, maptools, sp, loa, RColorBrewer, leaflet,jpeg
+Suggests: PBSmapping, maptools, sp, loa, RColorBrewer, leaflet,jpeg, RCurl
 Author: Markus Loecher 
 URL: http://rgooglemaps.r-forge.r-project.org/QuickTutorial.html
 Maintainer: Markus Loecher <markus.loecher@gmail.com>

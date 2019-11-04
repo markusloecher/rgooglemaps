@@ -31,10 +31,10 @@
   lat.center <- MyMap[[1]];
   lon.center <- MyMap[[2]];
   zoom <- MyMap[[3]];
-  if (TrueProj & MyMap$url == "OSM") {
-    print("Caution: map type is OpenStreetMap. Until we find the correct projection algorithm, we treat lat/lon like planar coordinates and set TrueProj = FALSE.")
-    TrueProj = FALSE;
-  }
+  # if (TrueProj & MyMap$url == "OSM") {
+  #   print("Caution: map type is OpenStreetMap. Until we find the correct projection algorithm, we treat lat/lon like planar coordinates and set TrueProj = FALSE.")
+  #   TrueProj = FALSE;
+  # }
   
   if ( !("BBOX" %in% names(MyMap)) ) MyMap$BBOX <- list(ll = XY2LatLon(MyMap, -size[1]/2 + 0.5, -size[2]/2 + 0.5), ur = XY2LatLon(MyMap, size[1]/2 - 0.5, size[2]/2 - 0.5) );
   
@@ -106,7 +106,7 @@
 }, ex = function(){
 #The first step naturally will be to download a static map from the Google server. A simple example:
 
-  if (0){
+  if (dontrun){
     lat = c(40.702147,40.711614,40.718217);
     lon = c(-74.015794,-74.012318,-73.998284);
     center = c(mean(lat), mean(lon));

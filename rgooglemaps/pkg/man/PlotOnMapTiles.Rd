@@ -34,12 +34,12 @@ if (0){
   zoom <- min(MaxZoom(range(lat), range(lon)));
   bb=qbbox(lat,lon)
   
-  mt = GetMapTiles(latR =bb$latR , lonR=bb$lonR,zoom=zoom,verbose=1)
-  PlotOnMapTiles(mt,lat=lat,lon=lon,pch=20,col=c('red', 'blue', 'green'),cex=2)
+  manhattan_osm = GetMapTiles(latR =bb$latR , lonR=bb$lonR,zoom=zoom,verbose=1)
+  PlotOnMapTiles(manhattan_osm,lat=lat,lon=lon,pch=20,col=c('red', 'blue', 'green'),cex=2)
   
-  mt = GetMapTiles(latR =bb$latR , lonR=bb$lonR,zoom=zoom,
-                   tileDir= "~/mapTiles/Google/")
-  PlotOnMapTiles(mt,lat=lat,lon=lon,pch=20,col=c('red', 'blue', 'green'),cex=2)
+  manhattan_goo = GetMapTiles(latR =bb$latR , lonR=bb$lonR,zoom=zoom,
+                   tileDir= TRUE, type="google" )
+  PlotOnMapTiles(manhattan_goo,lat=lat,lon=lon,pch=20,col=c('red', 'blue', 'green'),cex=2)
   
 }
 }

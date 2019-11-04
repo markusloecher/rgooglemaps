@@ -22,8 +22,9 @@
   NEWMAP = TRUE, ##<< if TRUE, query the Google server and save to \code{destfile}, if FALSE load from destfile. 
   SCALE = 1, ##<< use the API's scale parameter to return higher-resolution map images. The scale value is multiplied with the size to determine the actual output size of the image in pixels, without changing the coverage area of the map
   API_console_key, ##<< API key (formerly optional, now mandatory). If missing, the function "stitches" a static map from map tiles
-  urlBase = "http://a.tile.openstreetmap.org/", ##<< tileserver URL, alternatives: , "http://mt1.google.com/vt/lyrs=m", "http://tile.stamen.com/toner","http://tile.stamen.com/watercolor" 
-  tileDir= "~/mapTiles/OSM/", ##<< map tiles are stored in a local directory, e.g. "~/mapTiles/Google/"
+  type = c("google", "google-m","google-s","osm", "osm-hot", "stamen-toner", "stamen-terrain", "stamen-watercolor")[1],  ##<< choice of tile server
+  urlBase = "http://mt1.google.com/vt/lyrs=m" , ##<< tileserver URL, alternatives would be "http://a.tile.openstreetmap.org/", "http://tile.stamen.com/toner/","http://tile.stamen.com/watercolor/"
+  tileDir= "/tmp/", ##<< map tiles can be stored in a local directory, e.g. "~/mapTiles/Google/"
   verbose=0 ##<< level of verbosity
 ){
   ##note<<Note that size is in order (lon, lat)
@@ -52,7 +53,7 @@
   
   if (!missing(API_console_key)){
     print("API key provided")
-    #if (!is.null(API_console_key))  urlStr <- paste0(urlStr,"&key=", API_console_key);
+    if (!is.null(API_console_key))  urlStr <- paste0(urlStr,"&key=", API_console_key);
     
     stopifnot(all(size <=640));
    
@@ -156,7 +157,7 @@
   	}
   } else {# end of missing API key
   
-    f=genStaticMap(center=centerNum, destfile = destfile, urlBase=urlBase, tileDir=tileDir, zoom=zoom, size=size,verbose=verbose)
+    f=genStaticMap(center=centerNum, destfile = destfile, type=type, urlBase=urlBase, tileDir=tileDir, zoom=zoom, size=size,verbose=verbose)
     
     myMap <- list(lat.center = centerNum[1], lon.center  = centerNum[2], zoom = zoom, SCALE = SCALE);
     BBOX <- list(ll = XY2LatLon(myMap, -size[1]/2 + 0.5, -size[2]/2 - 0.5), ur = XY2LatLon(myMap, size[1]/2 + 0.5, size[2]/2 - 0.5) );
