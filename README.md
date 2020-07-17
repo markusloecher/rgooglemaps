@@ -1,11 +1,5 @@
 # rgooglemaps
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-<!-- badges: start -->
-
-[![CRAN
-status](https://www.r-pkg.org/badges/version/rgooglemaps)](https://cran.r-project.org/package=rgooglemaps)
-<!-- badges: end -->
 
 ### *Attention!*
 
