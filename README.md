@@ -3,10 +3,8 @@
 
 ### *Attention!*
 
-Google has [recently changed its API
-requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing),
-and users are now required to register with Google. From a
-user’s perspective, there are essentially three ramifications of this:
+Google [now requires users to register](https://developers.google.com/maps/documentation/geocoding/usage-and-billing).
+From a user’s perspective, there are essentially three ramifications of this:
 
 1.  Users must register with Google. You can do this at
     <a href="https://cloud.google.com/maps-platform/" class="uri">https://cloud.google.com/maps-platform/</a>.
@@ -14,7 +12,7 @@ user’s perspective, there are essentially three ramifications of this:
     be a fair bit of free use before you incur charges, and even then
     the charges are modest for light use.
 
-2.  Users must enable the APIs they intend to use. What may appearas one overarching “Google Maps” product, Google in
+2.  Users must enable the APIs they intend to use. What may appear as one overarching “Google Maps” product, Google in
     fact has several services that it provides as geo-related solutions.
     For example, the [Maps Static
     API](https://developers.google.com/maps/documentation/maps-static/intro)
@@ -43,8 +41,8 @@ Installation
 -   From Github:
 
 ``` r
-if (!requireNamespace("devtools")) install.packages("devtools")
-devtools::install_github("markusloecher/rgooglemaps")
+if (!requireNamespace("remotes")) install.packages("remotes")
+remotes::install_github("markusloecher/rgooglemaps")
 ```
 
 
