@@ -21,13 +21,13 @@ from an original GAL-format file. The matrix \code{bbs} is DEPRECATED, but retai
   \describe{
     \item{AREA}{computed by ArcView}
     \item{PERIMETER}{computed by ArcView}
-    \item{COLUMBUS\_}{internal polygon ID (ignore)}
-    \item{COLUMBUS\_I}{another internal polygon ID (ignore)}
+    \item{COLUMBUS.}{internal polygon ID (ignore)}
+    \item{COLUMBUS.I}{another internal polygon ID (ignore)}
     \item{POLYID}{yet another polygon ID}
     \item{NEIG}{neighborhood id value (1-49);
              conforms to id value used in Spatial Econometrics book.}
-    \item{HOVAL}{housing value (in \$1,000)}
-    \item{INC}{household income (in \$1,000)}
+    \item{HOVAL}{housing value (in $1,000)}
+    \item{INC}{household income (in $1,000)}
     \item{CRIME}{residential burglaries and vehicle thefts per thousand
         households in the neighborhood}
     \item{OPEN}{open space in neighborhood}

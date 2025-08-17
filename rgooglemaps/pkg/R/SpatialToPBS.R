@@ -7,10 +7,18 @@ SpatialToPBS <- structure(function#converts spatial objects as defined in packag
   verbose=0 ##<< level of verbosity
   ) {
     fun = points
-    if (inherits(xy, "Spatial")) {
-      b = sp::bbox(xy)
+    if ("sf" %in% class(xy) ) {#added no March 21st 2024
+      
+    } else if (inherits(xy, "Spatial")) {
+      
       if (inherits(xy, "SpatialPoints")) {
-        xy = sp::coordinates(xy)
+        #xy = sp::coordinates(xy)
+        if ("coords" %in% names(attributes(xy))){
+          xy = xy@coords
+          b = sp_bbox(xy)
+        } else {
+          warning("no coordinate slot in xy!")
+        }
       } else if (inherits(xy, "SpatialPolygons")) {
         res = matrix(ncol = 5, nrow = 0, dimnames = list(NULL, c("PID", "SID", "POS", "X", "Y")))
         for (i in 1:length(xy@polygons)) {
@@ -26,6 +34,7 @@ SpatialToPBS <- structure(function#converts spatial objects as defined in packag
           }
         }
         xy = res
+        b = sp_bbox(res[,c("X","Y")])
         fun = lines
         attr(xy, "projection") <- "LL"
       } else if (inherits(xy, "SpatialLines")) {
@@ -34,6 +43,7 @@ SpatialToPBS <- structure(function#converts spatial objects as defined in packag
           res[[j]] = xy@lines[[j]]@Lines[[1]]@coords
         }
         xy = res
+        b = sp_bbox(res[,c("X","Y")])#unlikely to work !
         fun = lines
         attr(xy, "projection") <- "LL"
       }  

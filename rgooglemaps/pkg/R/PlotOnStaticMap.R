@@ -106,7 +106,7 @@
 }, ex = function(){
 #The first step naturally will be to download a static map from the Google server. A simple example:
 
-  if (dontrun){
+  if (0){
     lat = c(40.702147,40.711614,40.718217);
     lon = c(-74.015794,-74.012318,-73.998284);
     center = c(mean(lat), mean(lon));

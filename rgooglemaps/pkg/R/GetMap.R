@@ -53,7 +53,6 @@
   
   if (!missing(API_console_key)){
     print("API key provided")
-    if (!is.null(API_console_key))  urlStr <- paste0(urlStr,"&key=", API_console_key);
     
     stopifnot(all(size <=640));
    
@@ -76,7 +75,8 @@
   		stopifnot(!is.null(center), !missing(zoom));
   		urlStr <- paste(googleurl, "center=", center, "&zoom=", zoom,  "&size=",  s, "&maptype=", maptype, "&format=", format, "&sensor=", sensor, sep="")
   	}
-  	
+    if (!is.null(API_console_key))  
+      urlStr <- paste0(urlStr,"&key=", API_console_key);
   	urlStr <- paste(urlStr, path, sep="");
   	urlStr <- paste(urlStr, extraURL, sep="");
   	

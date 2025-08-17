@@ -1,13 +1,18 @@
 Package: RgoogleMaps
 Type: Package
 Title: Overlays on Static Maps
-Version: 1.4.5
-Date: 2019-09-18
+Version: 1.5.3
+Date: 2025-08-16
 Depends: R (>= 2.10)
 Imports: graphics, stats, utils, grDevices, methods, png
-Suggests: PBSmapping, maptools, sp, loa, RColorBrewer, leaflet,jpeg, RCurl
-Author: Markus Loecher 
-URL: http://rgooglemaps.r-forge.r-project.org/QuickTutorial.html
+Suggests: PBSmapping, RColorBrewer, leaflet, jpeg, RCurl
+Authors@R: c(
+  person("Markus", "Loecher",
+         email = "markus.loecher@gmail.com",
+         role = c("aut", "cre"),
+         comment = c(ORCID = "0000-0002-6823-1994")))
+URL:
+        https://github.com/markusloecher/rgooglemaps/blob/master/rgooglemaps/www/QuickTutorial.html
 Maintainer: Markus Loecher <markus.loecher@gmail.com>
 Description: Serves two purposes: (i) Provide a
         comfortable R interface to query the Google server for static
@@ -16,9 +21,5 @@ Description: Serves two purposes: (i) Provide a
 License: GPL
 LazyLoad: yes
 Repository: CRAN
-Repository/R-Forge/Project: rgooglemaps
-Repository/R-Forge/Revision: 20
-Repository/R-Forge/DateTimeStamp: 2017-02-09 15:29:12
-Date/Publication: 2018-11-07 20:10:11 UTC
 NeedsCompilation: no
-Packaged: 2018-11-07 16:25:38 UTC; loecherm
+Packaged: 2024-03-22 14:33:44 UTC; loecherm

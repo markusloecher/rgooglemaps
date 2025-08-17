@@ -3,7 +3,7 @@ ReadMapTile <- structure(function#Read a bitmap image stored in the PNG format
 (
   destfile,  ##<< png file to read 
   METADATA = TRUE,  ##<< read MetaInfo as well ?
-  native=TRUE ##<< determines the image representation - if FALSE then the result is an array, if TRUE then the result is a native raster representation, see \link{readPNG} in package png.
+  native=TRUE ##<< determines the image representation - if FALSE then the result is an array, if TRUE then the result is a native raster representation, see \link[png]{readPNG} in package png.
 ){
   fileBase <- substring(destfile,1, nchar(destfile)-4);
   fileExt <-  substring(destfile,nchar(destfile)-2,nchar(destfile));

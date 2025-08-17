@@ -15,7 +15,7 @@
 #  frame, ##<< (optional) specifies that the resulting image should be framed with a colored blue border. The frame consists of a 5 pixel, 55 % opacity blue border. 
  # hl, ##<< (optional) defines the language to use for display of labels on map tiles. Note that this paramater is only supported for some country tiles; if the specific language requested is not supported for the tile set, then the default language for that tile set will be used.
 #  sensor = "true",  ##<< specifies whether the application requesting the static map is using a sensor to determine the user`s location. This parameter is now required for all static map requests.
-  maptype = c("Road","Aerial ","AerialWithLabels")[1], ##<< defines the type of map to construct. See https://msdn.microsoft.com/en-us/library/ff701724.aspx
+  maptype = c("Road","Aerial","AerialWithLabels")[1], ##<< defines the type of map to construct. See https://msdn.microsoft.com/en-us/library/ff701724.aspx
   format = c("png","gif","jpg","jpg-baseline","png8","png32")[1],  ##<< (optional) defines the format of the resulting image. By default, the Static Maps API creates GIF images. There are several possible formats including GIF, JPEG and PNG types. Which format you use depends on how you intend to present the image. JPEG typically provides greater compression, while GIF and PNG provide greater detail. This version supports only PNG.
   extraURL="", ##<< custom URL suffix
   RETURNIMAGE = TRUE, ##<< return image yes/no default: TRUE
@@ -26,7 +26,7 @@
   verbose=0 ##<< level of verbosity
 ){
   ##note<<Note that size is in order (lon, lat)
-  if (!(maptype %in% c("Road","Aerial ","AerialWithLabels"))) maptype="Road"
+  if (!(maptype %in% c("Road","Aerial","AerialWithLabels"))) maptype="Road"
   
   if (missing(destfile)) destfile=file.path(tempdir(),"mapTile.png")
   if (is.character(center)) {

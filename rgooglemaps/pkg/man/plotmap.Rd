@@ -9,7 +9,7 @@ This function is the workhorse of the package RgoogleMaps. It overlays plot on b
     "mapmaker-hybrid")[2], destfile, data, alpha = 1, 
     col = 1, apiKey = NULL, verbose = 0, ...)}
 \arguments{
-  \item{lat}{latitude values to be overlaid OR string to be geocoded!}
+  \item{lat}{latitude values to be overlaid OR string to be geocoded OR named vector (lat,lon)!}
   \item{lon}{longitude values to be overlaid}
   \item{map}{optional map object}
   \item{zoom}{Google maps zoom level}

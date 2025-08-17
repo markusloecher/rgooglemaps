@@ -26,3 +26,9 @@ Changes in Version 1.3.0
   o new feature: added full support for OpenStreetMap maps
   o removed dependency on RJSONIO
   o new feature: added functions to fetch individual map tiles and stitch them together. This has the side effect of making these maps available offline
+  
+  Changes in Version 1.5.1 
+    o removed dependency on maptools: the respective examples in PlotPolysOnStaticMap were removed
+    o removed dependency on sp: (i) functions DF2SpatialPointsDataFrame and bubblemap were entirely removed, (ii) copied sp::bbox into a new sp_bbox function, (iii) replaced xy = sp::coordinates(xy) in SpatialToPBS.R with xy = xy@coords, (iv) replaced data sets with sp classes with sf: NYleukemia$spatial.polygon = st_as_sf(NYleukemia$spatial.polygon), pennLC$spatial.polygon = st_as_sf(pennLC$spatial.polygon)
+    
+    

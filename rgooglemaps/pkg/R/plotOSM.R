@@ -131,6 +131,42 @@ geosphere_mercator = function#Transform longitude/latiude points to the Mercator
     inverse = FALSE, ##<<  Logical. If TRUE, do the inverse projection (from Mercator to longitude/latitude
     r = 6378137  ##<< Numeric. Radius of the earth; default = 6378137 m
 ) {
+  .pToMatrix <- function(p) {
+    
+    if (is.data.frame(p)) {
+      p <- as.matrix(p)
+    } else 
+      
+      if (is.vector(p)){
+        if (length(p) != 2) {
+          stop('Wrong length for a vector, should be 2')
+        } else {
+          p <- matrix(p, ncol=2) 
+        }
+      } else if (is.matrix(p)) {
+        if (ncol(p) != 2) {
+          stop( 'A points matrix should have 2 columns')
+        }
+        cn <- colnames(p)
+        if (length(cn) == 2) {
+          if (toupper(cn[1]) == 'Y' | toupper(cn[2]) == 'X')  {
+            warning('Suspect column names (x and y reversed?)')
+          }
+          if (toupper(substr(cn[1],1,3) == 'LAT' | toupper(substr(cn[2],1,3)) == 'LON'))  {
+            warning('Suspect column names (longitude and latitude reversed?)')
+          }
+        }		
+      } else {
+        stop('points should be vectors of length 2, matrices with 2 columns, or inheriting from a SpatialPoints* object')
+      }
+    
+    if (! is.numeric(p) ) { p[] <- as.numeric(p) 
+    }
+    
+    
+    return(p)
+  }
+  
   toRad <- pi/180
   if (inverse) {
     p <- .pToMatrix(p)
@@ -149,40 +185,5 @@ geosphere_mercator = function#Transform longitude/latiude points to the Mercator
 ### Mercator projection of lon/lat points
 }
 
-.pToMatrix <- function(p) {
-  
-  if (is.data.frame(p)) {
-    p <- as.matrix(p)
-  } else 
-    
-    if (is.vector(p)){
-      if (length(p) != 2) {
-        stop('Wrong length for a vector, should be 2')
-      } else {
-        p <- matrix(p, ncol=2) 
-      }
-    } else if (is.matrix(p)) {
-      if (ncol(p) != 2) {
-        stop( 'A points matrix should have 2 columns')
-      }
-      cn <- colnames(p)
-      if (length(cn) == 2) {
-        if (toupper(cn[1]) == 'Y' | toupper(cn[2]) == 'X')  {
-          warning('Suspect column names (x and y reversed?)')
-        }
-        if (toupper(substr(cn[1],1,3) == 'LAT' | toupper(substr(cn[2],1,3)) == 'LON'))  {
-          warning('Suspect column names (longitude and latitude reversed?)')
-        }
-      }		
-    } else {
-      stop('points should be vectors of length 2, matrices with 2 columns, or inheriting from a SpatialPoints* object')
-    }
-  
-  if (! is.numeric(p) ) { p[] <- as.numeric(p) 
-  }
-  
-
-  return(p)
-}
 
 
