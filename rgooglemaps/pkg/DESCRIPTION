@@ -12,7 +12,7 @@ Authors@R: c(
          role = c("aut", "cre"),
          comment = c(ORCID = "0000-0002-6823-1994")))
 URL:
-        https://github.com/markusloecher/rgooglemaps/blob/master/rgooglemaps/www/QuickTutorial.html
+        https://markusloecher.github.io/rgooglemaps/
 Maintainer: Markus Loecher <markus.loecher@gmail.com>
 Description: Serves two purposes: (i) Provide a
         comfortable R interface to query the Google server for static
